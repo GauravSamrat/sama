@@ -1,0 +1,3 @@
+# Product assets
+
+Each product has a folder with an original concept illustration. Put approved product icons, mobile and desktop screenshots, feature screenshots, share images, short videos and localized WebVTT captions in the corresponding folder. Set the matching fields in studio.js. Prefer WebP or AVIF for screenshots, PNG or JPEG for share images and MP4 or WebM for clips. The site chooses a mobile screenshot at widths up to 600 pixels. Use screenshots with no personal records or account details and describe any essential information in the surrounding localized copy. See CONTENT_GUIDE.md.
