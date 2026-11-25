@@ -26,13 +26,16 @@ test('all 42 pages contain static localized text, navigation and share metadata'
   }
 });
 
-test('product structured data and disabled commercial or release actions', () => {
+test('product structured data, verified actions and disabled checkout', () => {
   for (const p of site.products) {
     const html = render('en', p.id);
     const schema = JSON.parse(html.match(/application\/ld\+json">(.*?)<\/script>/)[1]);
     assert.equal(schema['@type'], 'SoftwareApplication');
     assert.equal(schema.softwareVersion, p.version);
-    assert.doesNotMatch(html, />Open app<|>Download</);
+    for (const [key, text] of [['launch', 'Open app'], ['download', 'Download']]) {
+      if (p[key]) assert.ok(html.includes('href="' + p[key] + '"'), p.id + ' ' + key);
+      else assert.ok(!html.includes('>' + text + '</a>'), p.id + ' unexpected ' + key);
+    }
   }
   assert.doesNotMatch(render('en', 'support'), />Open .*checkout</);
   assert.doesNotMatch(render('en', 'feedback'), /mailto:|Citta-Reader/);

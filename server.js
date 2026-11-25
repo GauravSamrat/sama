@@ -10,7 +10,7 @@ const types = {
   '.avif': 'image/avif', '.jpg': 'image/jpeg', '.mp4': 'video/mp4', '.webm': 'video/webm', '.vtt': 'text/vtt'
 };
 
-function serve(port = 8080) {
+function serve(port = 8081) {
   return http.createServer((req, res) => {
     let pathname;
     try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); }
@@ -40,7 +40,14 @@ function serve(port = 8080) {
 }
 
 if (require.main === module) {
-  const server = serve(Number(process.env.SAMA_PORT || 8080));
+  const port = Number(process.env.SAMA_PORT || 8081);
+  const server = serve(port);
+  server.once('error', error => {
+    console.error(error.code === 'EADDRINUSE'
+      ? 'SAMA port ' + port + ' is in use. Set SAMA_PORT to a free localhost port and retry.'
+      : error.message);
+    process.exitCode = 1;
+  });
   server.once('listening', () => console.log('Local http://127.0.0.1:' + server.address().port + '/'));
 }
 module.exports = { serve };

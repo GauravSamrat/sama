@@ -15,7 +15,7 @@ module.exports = {
   video: ['Product demonstration','ऐप का प्रदर्शन','অ্যাপের ব্যবহার দেখুন'],
   development: ['In development','विकास जारी है','উন্নয়ন চলছে'],
   documented: ['Version 1.0.0 documented','संस्करण 1.0.0 का दस्तावेज़ उपलब्ध','১.০.০ সংস্করণের নথি আছে'],
-  cli: ['Public documentation: v0.1 CLI','सार्वजनिक दस्तावेज़: v0.1 CLI','প্রকাশ্য নথি: v0.1 CLI'],
+  windowsRelease: ['Windows desktop and command line','Windows डेस्कटॉप और कमांड लाइन','Windows ডেস্কটপ ও কমান্ড লাইন'],
   unavailable: ['A verified app or download link is currently unavailable.','ऐप या डाउनलोड का सत्यापित लिंक अभी उपलब्ध नहीं है।','অ্যাপ বা ডাউনলোডের যাচাই করা লিংক এখনো নেই।'],
   source: ['Public documentation','सार्वजनिक दस्तावेज़','প্রকাশ্য নথি'], issues: ['Public issue tracker','सार्वजनिक समस्या-पंजी','প্রকাশ্য সমস্যা জানানোর পাতা'],
   launch: ['Open app','ऐप खोलें','অ্যাপ খুলুন'], download: ['Download','डाउनलोड करें','ডাউনলোড করুন'],

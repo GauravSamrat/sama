@@ -3,8 +3,8 @@
 Keep English, Hindi and Bengali rows in that order. Write equivalent ideas naturally in each language. Ask fluent reviewers to check the legal, privacy, checkout and commercial copy, and to review the complete site in context before public launch.
 
 - Citta is described at the product and workflow level from the supplied brief and local documentation. Android and Windows are target platforms. The beginner guide avoids unpublished setup steps, screen labels and backup procedures. Obtain approval for the public feature copy and authentic screenshots before launch. Keep private implementation details and repository links out of the distribution.
-- SAHAJA v1.0.0 is documented in the public repository. IndexedDB storage, recommendations, focus records and plan import were checked against documentation and source. The hosted app and downloadable asset need working public URLs before activation. Its recommendation on SAMA uses fixed examples. [Public README](https://github.com/GauravSamrat/sahaja/blob/main/README.md) · [User guide](https://github.com/GauravSamrat/sahaja/blob/main/USER_GUIDE.md)
-- Supreme Council’s public main README and v0.1.0 tag document the CLI. The latest published Release asset could not be confirmed. Newer local builds are unreleased for purposes of this website. The example uses written responses to show how comparison works. [Public tagged documentation](https://github.com/GauravSamrat/supreme-council/blob/v0.1.0/README.md)
+- SAHAJA v1.0.0 links to its existing GitHub Pages app. Its nine live runtime files match the tested local checkout. The SAMA recommendation demo uses fixed examples. [Public app](https://gauravsamrat.github.io/sahaja/) · [User guide](https://github.com/GauravSamrat/sahaja/blob/main/USER_GUIDE.md)
+- Supreme Council v0.3.0 runs locally on Windows as a Python desktop application and CLI. The public Windows ZIP was checked against GitHub’s SHA-256 digest. The SAMA example uses written responses to show how comparison works. [Public tagged documentation](https://github.com/GauravSamrat/supreme-council/blob/v0.3.0/README.md)
 
 ## Updates
 

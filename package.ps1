@@ -9,7 +9,8 @@ $entries = @(
     'build.js', 'server.js', 'test.js', 'browser-test.js',
     'setup.ps1', 'run.ps1', 'test.ps1', 'build.ps1', 'package.ps1',
     'README.md', 'TEST_REPORT.md', 'BRAND_GUIDE.md', 'CONTENT_GUIDE.md',
-    'PAYMENT_GUIDE.md', 'DEPLOYMENT.md', 'CHANGELOG.md', 'LICENSE'
+    'PAYMENT_GUIDE.md', 'DEPLOYMENT.md', 'ECOSYSTEM_DEPLOYMENT.md', 'CHANGELOG.md', 'LICENSE',
+    'firebase.json', '.firebaserc', 'deploy.ps1'
 )
 tar.exe -a -cf $archive -- @entries
 if ($LASTEXITCODE -ne 0) { throw 'ZIP creation failed.' }

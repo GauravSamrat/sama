@@ -25,7 +25,7 @@ If PowerShell scripts are blocked by your environment, the equivalent commands a
 - build.js generates HTML, metadata, security headers, sitemap, robots rules and localized 404s.
 - app.js handles language selection at the root, appearance and the local demonstration.
 - styles.css and assets define the visual system.
-- See DEPLOYMENT.md, CONTENT_GUIDE.md, PAYMENT_GUIDE.md and TEST_REPORT.md for launch instructions and verification status.
+- See ECOSYSTEM_DEPLOYMENT.md, CONTENT_GUIDE.md, PAYMENT_GUIDE.md and TEST_REPORT.md for deployment instructions and verification status.
 
 ## Launch configuration
 
