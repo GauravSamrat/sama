@@ -3,14 +3,16 @@ Set-Location $PSScriptRoot
 node build.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-$archive = 'SAMA-v1.0.0-Final.zip'
+$archive = 'Abundance-v1.0.0-Release.zip'
 $entries = @(
     '.gitignore', 'assets', 'locales', 'dist', 'app.js', 'studio.js', 'styles.css',
-    'build.js', 'server.js', 'test.js', 'browser-test.js',
+    'build.js', 'listening.js', 'server.js', 'test.js', 'browser-test.js',
     'setup.ps1', 'run.ps1', 'test.ps1', 'build.ps1', 'package.ps1',
     'README.md', 'TEST_REPORT.md', 'BRAND_GUIDE.md', 'CONTENT_GUIDE.md',
     'PAYMENT_GUIDE.md', 'DEPLOYMENT.md', 'ECOSYSTEM_DEPLOYMENT.md', 'CHANGELOG.md', 'LICENSE',
-    'firebase.json', '.firebaserc', 'deploy.ps1'
+    'firebase.json', '.firebaserc', 'deploy.ps1', 'ABUNDANCE_CHARTER.md',
+    'COMMUNITY_SETUP.md', 'NEWSLETTER_SETUP.md', 'FEEDBACK_SYSTEM.md', 'PRODUCT_REGISTRY.md',
+    'JOURNAL_GUIDE.md', 'PRIVACY_AND_SECURITY.md', 'MIGRATION_REPORT.md', 'FOUNDER_ACTIONS.md'
 )
 tar.exe -a -cf $archive -- @entries
 if ($LASTEXITCODE -ne 0) { throw 'ZIP creation failed.' }

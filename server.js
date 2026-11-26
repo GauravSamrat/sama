@@ -6,7 +6,7 @@ const root = path.resolve(__dirname, 'dist');
 const types = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png',
-  '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8', '.webp': 'image/webp',
+  '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8', '.webp': 'image/webp', '.webmanifest': 'application/manifest+json',
   '.avif': 'image/avif', '.jpg': 'image/jpeg', '.mp4': 'video/mp4', '.webm': 'video/webm', '.vtt': 'text/vtt'
 };
 
@@ -44,7 +44,7 @@ if (require.main === module) {
   const server = serve(port);
   server.once('error', error => {
     console.error(error.code === 'EADDRINUSE'
-      ? 'SAMA port ' + port + ' is in use. Set SAMA_PORT to a free localhost port and retry.'
+      ? 'Abundance port ' + port + ' is in use. Set SAMA_PORT to a free localhost port and retry.'
       : error.message);
     process.exitCode = 1;
   });

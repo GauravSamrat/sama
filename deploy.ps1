@@ -19,6 +19,7 @@ if ($project -ne 'sama-studio-01' -or $hosting.site -ne $project -or $hosting.pu
 }
 
 if (-not $CheckOnly) {
+    Invoke-Checked node @('-e', "if (require('./studio').editorialPreview) { console.error('Review journal drafts and disable editorialPreview before a public deploy.'); process.exit(1); }")
     Get-Command firebase -ErrorAction Stop | Out-Null
     $sites = firebase hosting:sites:list --project $project --json
     if ($LASTEXITCODE -ne 0) { throw 'Firebase site check failed. Run firebase login and verify project access.' }
@@ -35,11 +36,12 @@ Invoke-Checked node @('build.js')
 $root = Join-Path $PSScriptRoot 'dist'
 $files = @(Get-ChildItem -LiteralPath $root -Recurse -File -Force)
 $pages = @(Get-ChildItem -LiteralPath (Join-Path $root 'en'), (Join-Path $root 'hi'), (Join-Path $root 'bn') -Filter index.html -Recurse -File)
-if ($pages.Count -ne 42) { throw "Expected 42 localized pages. Found $($pages.Count)." }
+$expected = node -p "const b=require('./build'); b.routes.length*b.langs.length"
+if ($LASTEXITCODE -ne 0 -or $pages.Count -ne [int]$expected) { throw "Expected $expected localized pages. Found $($pages.Count)." }
 $credentials = 'BEGIN [A-Z ]*PRIVATE KEY|github_pat_[A-Za-z0-9_]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|AKIA[A-Z0-9]{16}|sk_live_[A-Za-z0-9]{12,}|sk-or-v1-[a-z0-9]{24,}|gsk_[A-Za-z0-9]{24,}|AIza[0-9A-Za-z_-]{35}|Citta-Reader'
 foreach ($file in $files) {
     $relative = $file.FullName.Substring($root.Length + 1).Replace('\','/')
-    if ($relative -notmatch '^(?:(?:en|hi|bn)/[a-z/-]*?(?:index|404)\.html|(?:index|404)\.html|app\.js|styles\.css|robots\.txt|sitemap\.xml|_headers|assets/(?:README\.md|[a-z0-9/-]+\.(?:svg|png|webp|avif|jpg|jpeg|vtt|mp4|webm)))$') {
+    if ($relative -notmatch '^(?:(?:en|hi|bn)/[a-z/-]*?(?:index|404)\.html|(?:index|404)\.html|app\.js|styles\.css|manifest\.webmanifest|robots\.txt|sitemap\.xml|_headers|assets/(?:README\.md|[a-z0-9/-]+\.(?:svg|png|webp|avif|jpg|jpeg|vtt|mp4|webm)))$') {
         throw "Unexpected production file: $relative"
     }
     if ($file.Extension -in '.html','.js','.css','.txt','.xml','.svg','.md','.vtt' -or $file.Name -eq '_headers') {

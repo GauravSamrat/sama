@@ -1,5 +1,14 @@
 # Test report
 
+## Abundance release candidate
+
+- The pre-change Git checkpoint was 9d04254. All six baseline Node tests passed.
+- Abundance runs eight Node suites for all generated routes and links, sitemap and metadata, disabled delivery, product links, security checks, and contrast across core light and dark colors.
+- Edge exercises 63 routes at 320, 390, 768, 1024, 1366 and 1920 CSS pixels. Its guided-flow checks cover every category, optional paths, product context, conditional email, session recovery, clearing and rendering untrusted text as text. The English desktop light and Bengali mobile dark screenshots were visually inspected.
+- The public form and hosted newsletter provider are unconfigured. Real network receipt, backend server validation and abuse controls, provider double opt-in and unsubscribe still require a configured staging integration. Physical mobile devices and screen-reader checks were not exercised. This is not a WCAG conformance claim.
+
+The results below document the previous SAMA release. Its published site was left unchanged during the Abundance work.
+
 ## Firebase deployment verification
 
 The Firebase release passed the six Node tests and 84 local Edge route checks. The preflight found 42 localized pages and 62 production files. Firebase uploaded 60 files after applying its ignore rules. SAHAJA passed 20 Node tests and its Chromium workflow suite, and all nine live PWA files matched the checked-out files. Supreme Council passed 22 offline tests, and the published v0.3.0 ZIP matched GitHub's SHA-256 digest. No provider inference was run.

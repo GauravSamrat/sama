@@ -1,6 +1,6 @@
-# SAMA v1.0.0
+# Abundance v1.0.0
 
-SAMA is an independent software studio’s static website. It covers Citta, SAHAJA and Supreme Council in English, Hindi and Bengali. The production files are in dist. Product and guide pages work without JavaScript.
+Abundance is an independent technology initiative. The static site covers Citta, SAHAJA and Supreme Council in English, Hindi and Bengali. It includes a Journal, community pages and a guided listening form. The production output is in dist. Products, guides and articles are readable without JavaScript.
 
 ## Windows workflow
 
@@ -21,6 +21,8 @@ If PowerShell scripts are blocked by your environment, the equivalent commands a
 ## Source map
 
 - studio.js contains the brand, public origin, products, assets and approved commercial settings.
+- locales/journal.js contains articles. See JOURNAL_GUIDE.md for editorial review and publication.
+- studio.js also controls social and community links, newsletter signup and the submission endpoint.
 - locales contains translations. Each translation row is ordered English, Hindi, Bengali.
 - build.js generates HTML, metadata, security headers, sitemap, robots rules and localized 404s.
 - app.js handles language selection at the root, appearance and the local demonstration.
@@ -29,5 +31,5 @@ If PowerShell scripts are blocked by your environment, the equivalent commands a
 
 ## Launch configuration
 
-Set the HTTPS production origin in studio.js and rebuild. An unset origin makes the build a preview, with noindex and a blocked robots file. Add the founder-approved contact address and enable the confirmed service list when ready. Product links and checkout stay disabled until their destinations and terms are verified. The publication package contains only SAMA website source, assets and distribution. Use a dedicated GitHub repository for this website’s source history.
+The current configuration retains the existing Firebase origin until a replacement is approved. Review the three Journal drafts, verify any new destinations, and see FOUNDER_ACTIONS.md before publishing. No new provider or endpoint is configured.
 

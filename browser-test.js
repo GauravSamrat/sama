@@ -115,9 +115,36 @@ async function run() {
     assert.equal(new Set(actions.filter(Boolean)).size, 9);
     await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
     assert.equal(await evaluate('getComputedStyle(document.querySelector("button")).transitionDuration'), '0s');
-    for (const width of [1366, 390]) {
+    await navigate(port, '/en/listen/?product=sahaja', '/en/listen/');
+    const branches = await evaluate([
+      '(()=>{const f=document.querySelector("[data-listen]");',
+      'const click=key=>f.querySelector("[data-"+key+"]").click();',
+      'const set=(field,value)=>{field.value=value;field.dispatchEvent(new Event("input",{bubbles:true}));};',
+      'if(f.elements.product.value!=="sahaja" || f.elements.contact.checked) return false;',
+      'click("next");if(!f.querySelector("[data-status]").textContent) return false;',
+      'set(f.elements.problem,"<img src=x onerror=alert(1)>");click("next");',
+      'for(const option of Array.from(f.elements.category.options).slice(1)){',
+      'set(f.elements.category,option.value);click("next");',
+      'const group=f.querySelector("[data-category="+option.value+"]");',
+      'if(group.hidden || group.querySelector("textarea").disabled) return false;',
+      'set(group.querySelector("textarea"),option.value);click("back");}',
+      'set(f.elements.category,"");click("next");click("next");',
+      'f.elements.contact.click();if(f.elements.email.disabled) return false;',
+      'set(f.elements.email,"demo@example.com");click("next");',
+      'const review=f.querySelector("[data-review-body]");',
+      'return !review.querySelector("img") && review.textContent.includes("<img") &&',
+      '!review.textContent.includes("education") && !f.querySelector("[data-send]") &&',
+      '!sessionStorage.getItem("abundance-listening-draft-v1").includes("demo@example.com");})()'
+    ].join(''));
+    assert.ok(branches, 'listening flow, safe text and conditional consent');
+    await navigate(port, '/en/listen/');
+    assert.match(await evaluate('document.querySelector("[data-listen]").elements.problem.value'), /<img/);
+    await evaluate('document.querySelector("[data-clear]").click()');
+    assert.equal(await evaluate('sessionStorage.getItem("abundance-listening-draft-v1")'), null);
+    const widths = [320, 390, 768, 1024, 1366, 1920];
+    for (const width of widths) {
       await send('Emulation.setDeviceMetricsOverride', {
-        width, height: 850, deviceScaleFactor: 1, mobile: width === 390
+        width, height: 850, deviceScaleFactor: 1, mobile: width <= 390
       });
       for (const lang of langs) for (const route of routes) {
         await navigate(port, '/' + lang + '/' + (route ? route + '/' : ''));
@@ -126,9 +153,9 @@ async function run() {
         assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'), lang + ' ' + route + ' ' + width);
         assert.ok(await evaluate('[...document.images].every(img => !img.complete || img.naturalWidth > 0)'), lang + ' ' + route);
       }
-      if (process.env.SAMA_BROWSER_SCREENSHOTS === '1') {
+      if (process.env.SAMA_BROWSER_SCREENSHOTS === '1' && [390, 1366].includes(width)) {
         await navigate(port, width === 1366 ? '/en/' : '/bn/');
-        await evaluate('document.documentElement.dataset.theme="light"');
+        await evaluate('document.documentElement.dataset.theme=' + JSON.stringify(width === 390 ? 'dark' : 'light'));
         const shot = await send('Page.captureScreenshot', { format: 'png' });
         const directory = path.join(__dirname, 'browser-artifacts');
         fs.mkdirSync(directory, { recursive: true });
@@ -144,7 +171,8 @@ async function run() {
     assert.ok(await evaluate('document.querySelector("main").textContent.includes("बैकअप")'));
     assert.deepEqual(errors, []);
     assert.ok(requests.every(value => value.startsWith('http://127.0.0.1:' + port + '/')), 'unexpected external request');
-    console.log('84 browser route checks passed at 1366px and 390px. Language, theme, demo, keyboard, reduced motion and static content passed.');
+    console.log(widths.length * routes.length * langs.length +
+      ' browser route checks passed. Language, theme, demo, listening, keyboard, reduced motion and static content passed.');
   } finally {
     server.close();
     browser.kill();

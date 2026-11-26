@@ -1,5 +1,14 @@
 module.exports = {
-  brand: 'SAMA',
+  brand: 'Abundance',
+  artwork: { wordmark: 'assets/brand/abundance.jpg', icon: 'assets/brand/symbol.png',
+    favicon: 'assets/brand/favicon.svg', social: 'assets/brand/social.png' },
+  editorialPreview: false,
+  newsletter: { signup: null },
+  submissions: { endpoint: null },
+  community: ['WhatsApp', 'Facebook', 'Discord', 'Telegram', 'Email'].map(platform => ({
+    platform, label: platform, url: null, enabled: false, scope: 'general', kind: 'discussion'
+  })),
+  social: [],
   origin: 'https://sama-studio-01.web.app',
   languages: { en: 'English', hi: 'हिंदी', bn: 'বাংলা' },
   email: null,
